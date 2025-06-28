@@ -1,42 +1,58 @@
 using System;
 using Core.Entities;
+using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
 [ApiController]
 [Route("api/[Controller]")]
-public class ProductsController : ControllerBase
+
+public class ProductsController(IProductRepository repo) : ControllerBase
 {
-    private readonly StoreContext context;
+    // private readonly IProductRepository repo;
+    // public ProductsController(IProductRepository repo)
+    // {
+    //     this.repo = repo;
+    // }
 
-    public ProductsController(StoreContext context)
-    {
-        this.context = context;
-    }
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+    public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts(string? brand, string? type, string? sort)
+
+        // if (string.IsNullOrEmpty(brand) && string.IsNullOrEmpty(type))
+        // {
+        //     return BadRequest("Brand or Type must be provided");
+        // }
+        // if (!string.IsNullOrEmpty(sort) && sort != "name" && sort != "price")
+        // {
+        //     return BadRequest("Sort must be either 'name' or 'price'");
+        // }
     {
-        return await context.Products.ToListAsync();
+        return Ok(await repo.GetProductsAsync(brand, type, sort));
     }
-    [HttpGet("{id:int}")] // api/products/2
+        [HttpGet("{id:int}")] // api/products/2
+    
     public async Task<ActionResult<Product>> GetProduct(int id)
-    {
-        var product = await context.Products.FindAsync(id);
+        {
+            var product = await repo.GetProductByIdAsync(id);
 
-        if (product == null) return NotFound();
+            if (product == null) return NotFound();
 
-        return product;
-    }
+            return product;
+        }
 
     [HttpPost]
     public async Task<ActionResult<Product>> CreateProduct(Product product)
     {
-        context.Products.Add(product);
-        await context.SaveChangesAsync();
-        return product;
+        repo.AddProduct(product);
+        if (await repo.SaveChangesAsync())
+        {
+            return CreatedAtAction("GetProduct", new { id = product.Id }, product);
+        }
+        return BadRequest("Problem creating product");
     }
     [HttpPut("{id:int}")]
     public async Task<ActionResult> UpdateProduct(int id, Product product)
@@ -44,29 +60,47 @@ public class ProductsController : ControllerBase
         if (product.Id != id || !ProductExists(id))
             return BadRequest("Cannot Update this product");
 
-        context.Entry(product).State = EntityState.Modified;
+        repo.UpdateProduct(product);
 
-        await context.SaveChangesAsync();
+        if (await repo.SaveChangesAsync())
+        {
+            return NoContent();
+        }
 
-        return NoContent();
+        return BadRequest("Problem updating product");
     }
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteProduct(int id)
     {
-        var product = await context.Products.FindAsync(id);
-
+        var product = await repo.GetProductByIdAsync(id);
         if (product == null) return NotFound();
 
-        context.Products.Remove(product);
+        repo.DeleteProduct(product);
 
-        await context.SaveChangesAsync();
+        if (await repo.SaveChangesAsync())
+        {
+            return NoContent();
+        }
 
-        return NoContent();
+        return BadRequest("Problem deleting the product");
+
+    }
+    [HttpGet("brands")]
+    public async Task<ActionResult<IReadOnlyList<string>>> GetBrands()
+    {
+        var brands = await repo.GetBrandsAsync();
+        return Ok(brands);
     }
 
+    [HttpGet("types")]
+    public async Task<ActionResult<IReadOnlyList<string>>> GetTypes()
+    {
+        var types = await repo.GetTypesAsync();
+        return Ok(types);
+    }
     private bool ProductExists(int id)
     {
-        return context.Products.Any(x => x.Id == id);
+        return repo.ProductExists(id);
     }
 
 }
