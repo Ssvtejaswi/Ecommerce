@@ -7,13 +7,14 @@ import { Pagination } from './shared/modules/pagination';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [Header],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App implements OnInit{
 
-  baseUrl = 'localhost://localhost:5001/api';
+  baseUrl = 'https://localhost:5001/api';
   private http=inject(HttpClient);
   protected title = 'Ecommerce';
   products : Product[]=[];

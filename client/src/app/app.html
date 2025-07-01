@@ -1,9 +1,10 @@
 <app-header></app-header>
 <div class ="container mt-6">
-  <h1 class="text-3xl font-bold underline"> Welcome to {{ title }}</h1>
+  <h2 class="text-3xl font-bold underline"> Welcome to {{ title }}</h2>
   <ul>
-    @for (product of products; track product.id) {
-      <li>{{ product.name }} </li>
-    }
+    <li *ngFor="let product of products; trackBy: trackById">
+  {{ product.name }}
+</li>
+
   </ul>
 </div>
