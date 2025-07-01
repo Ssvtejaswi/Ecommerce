@@ -10,8 +10,13 @@ $customTheme: mat.define-theme();
 .custom-theme{
     @include mat.all-component-themes($customTheme);
     .mdc-button, .mdc-raised-button, .mdc-stroked-button, .mdc-flat-button {
-        @apply rounded-md
+        border-radius: 0.375rem; // equivalent to Tailwind's rounded-md
     }
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.container{
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    max-inline-size: 1536px; // Tailwind's max-w-screen-2xl
+}
+
