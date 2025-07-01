@@ -5,24 +5,30 @@ import { HttpClient } from '@angular/common/http';
 import { Product } from './shared/modules/product';
 import { Pagination } from './shared/modules/pagination';
 
+// Import NgFor directive
+import { NgForOf } from '@angular/common';
+
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [Header],
+  imports: [Header, NgForOf],  // <-- Add NgFor here
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrls: ['./app.scss']  // <-- fix typo: styleUrls (plural)
 })
-export class App implements OnInit{
-
-  baseUrl = 'https://localhost:5001/api';
-  private http=inject(HttpClient);
+export class App implements OnInit {
+  baseUrl = 'http://localhost:5001/api';
+  private http = inject(HttpClient);
   protected title = 'Ecommerce';
-  products : Product[]=[];
+  products: Product[] = [];
+
+  trackById(index: number, item: Product) {
+    return item.id;
+  }
+
   ngOnInit(): void {
-      this.http.get<Pagination<Product>>(this.baseUrl + '/products').subscribe({
-        next:response => this.products = response.data,
-        error:error => console.log(error),
-        complete: () => console.log('Complete')
-      })
+    this.http.get<Pagination<Product>>(this.baseUrl + '/products').subscribe({
+      next: response => this.products = response.data,
+      error: error => console.log(error),
+      complete: () => console.log('Complete')
+    });
   }
 }

@@ -1,18 +1,13 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
-
 import { routes } from './app.routes';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 
 export const appConfig: ApplicationConfig = {
-  providers:[
-    provideZonelessChangeDetection(),
-    provideRouter(routes),
+  providers: [
+    provideRouter(routes), 
     provideAnimationsAsync(),
-    provideBrowserGlobalErrorListeners(),
-    provideHttpClient(),
-  ]};
-function provideAnimationsAsync(): import("@angular/core").Provider | import("@angular/core").EnvironmentProviders {
-  throw new Error('Function not implemented.');
-}
-
+    provideHttpClient()
+  ]
+};
