@@ -11,3 +11,8 @@
     inline-size: 32px;
     block-size: 32px;
 }
+a {
+    &.active{
+        color:#7d00fa;
+    }
+}

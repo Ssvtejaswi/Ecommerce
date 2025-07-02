@@ -14,7 +14,7 @@ import { ShopC } from "./features/shop/shopC";
 
 @Component({
   selector: 'app-root',
-  imports: [Header, ShopC],  // <-- Add NgFor here
+  imports: [Header, RouterOutlet],  // <-- Add NgFor here
   templateUrl: './app.html',
   styleUrls: ['./app.scss']  // <-- fix typo: styleUrls (plural)
 })
