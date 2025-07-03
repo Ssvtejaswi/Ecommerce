@@ -27,7 +27,7 @@ import { MatLabel } from '@angular/material/form-field';
 })
 export class ProductDetails implements OnInit {
   ngOnInit(): void {
-    this
+    this.loadProduct();
   }
  
   private shopService= inject(Shop);
