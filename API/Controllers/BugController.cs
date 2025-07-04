@@ -7,27 +7,27 @@ namespace API.Controllers;
 
 public class BugController : BaseApiController
 {
-    [HttpGet("Unauthorized")]
+    [HttpGet("unauthorized")]
     public IActionResult GetUnauthorized()
     {
         return Unauthorized();
     }
-    [HttpGet("BadRequest")]
+    [HttpGet("badrequest")]
     public IActionResult GetBadRequest()
     {
         return BadRequest("Bad Request");
     }
-    [HttpGet("NotFound")]
+    [HttpGet("notfound")]
     public IActionResult GetNotFound()
     {
         return NotFound();
     }
-    [HttpGet("internalError")]
+    [HttpGet("internalerror")]
     public IActionResult GetInternalError()
     {
         throw new Exception("Test error");
     }
-    [HttpPost("validationError")]
+    [HttpPost("validationerror")]
     public IActionResult GetValidationError(CreateProductDto product)
     {
         return Ok(); 
