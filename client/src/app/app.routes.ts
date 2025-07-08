@@ -6,7 +6,7 @@ import { TestError } from './features/test-error/test-error';
 import { Notfound } from './shared/components/notfound/notfound';
 import { Servererror } from './shared/components/servererror/servererror';
 import { Cart } from './features/cart/cart';
-import { Checkout } from './core/services/checkout';
+import { Checkout } from './features/checkout/checkout';
 
 
 

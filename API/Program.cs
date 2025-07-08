@@ -54,5 +54,6 @@ catch (Exception ex)
     throw;
 }
 
+app.UseHttpsRedirection();
 
 app.Run();

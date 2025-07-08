@@ -15,8 +15,8 @@ import { CartService } from '../../../core/services/cart.service';
     CurrencyPipe,
     MatCardActions,
     MatIcon,
-    RouterLink
-    // MatButton
+    RouterLink,
+    MatButton
 
   ],
 

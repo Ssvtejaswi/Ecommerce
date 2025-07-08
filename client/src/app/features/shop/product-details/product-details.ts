@@ -10,6 +10,7 @@ import { MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatIcon } from '@angular/material/icon';
 import { MatLabel } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
 import { CartService } from '../../../core/services/cart.service';
 
 @Component({
@@ -21,7 +22,8 @@ import { CartService } from '../../../core/services/cart.service';
     CurrencyPipe,
     MatInput,
     MatLabel,
-    MatDivider
+    MatDivider,
+    FormsModule
   ],
   templateUrl: './product-details.html',
   styleUrl: './product-details.scss'

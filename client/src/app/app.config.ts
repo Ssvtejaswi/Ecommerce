@@ -20,7 +20,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes), 
     provideAnimations(),
-    provideHttpClient(),
     provideHttpClient(withInterceptors([errorInterceptor, loadingInterceptor])),
     {
       provide: APP_INITIALIZER,
