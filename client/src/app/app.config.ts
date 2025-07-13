@@ -7,7 +7,7 @@ import { errorInterceptor } from './core/interceptors/error-interceptor';
 import { loadingInterceptor } from './core/interceptors/loading-interceptor';
 import { InitService } from './core/services/init';
 import { lastValueFrom } from 'rxjs';
-import { authInterceptor } from './core/interceptors/auth.interceptor';
+import { authInterceptor } from './core/interceptors/auth-interceptor';
 
 function initializeApp(initService: InitService) {
   return () => lastValueFrom(initService.init()).finally(() => {
