@@ -4,6 +4,7 @@ import { CartItemComponent } from "./cart-item/cart-item";
 import { OrderSummaryComponent } from "../../shared/components/order-summary/order-summary";
 import { EmptyState } from "../../shared/components/empty-state/empty-state";
 
+
 @Component({
   selector: 'app-cart',
   imports: [CartItemComponent, OrderSummaryComponent, EmptyState],
