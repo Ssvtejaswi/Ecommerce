@@ -5,14 +5,18 @@ import { Router, RouterLink } from '@angular/router';
 import { CurrencyPipe, JsonPipe } from '@angular/common';
 import { ConfirmationToken, StripeAddressElement, StripeAddressElementChangeEvent, StripePaymentElement, StripePaymentElementChangeEvent } from '@stripe/stripe-js';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
-import { StripeService } from '../../core/services/stripe.service';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatStepper, MatStepperModule } from '@angular/material/stepper';
+import { StripeService } from '../../core/services/stripe';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Address } from '../../shared/modules/User';
 import { firstValueFrom } from 'rxjs';
 import { OnInit } from '@angular/core';
 import { SnackbarService } from '../../core/services/snackbar';
 import { Account } from '../../core/services/account';
 import { CartService } from '../../core/services/cart.service';
+import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
+import { CheckoutDelivery } from './checkout-delivery/checkout-delivery';
+import { CheckoutReview } from './checkout-review/checkout-review';
 
 @Component({
   selector: 'app-checkout',
@@ -22,12 +26,11 @@ import { CartService } from '../../core/services/cart.service';
     MatButton,
     RouterLink,
     MatCheckboxModule,
-    CheckoutDeliveryComponent,
-    CheckoutReviewComponent,
+    CheckoutDelivery,
+    CheckoutReview,
     CurrencyPipe,
-    JsonPipe,
     MatProgressSpinnerModule
-  ],
+],
   templateUrl: './checkout.html',
   styleUrl: './checkout.scss'
 })
